@@ -68,6 +68,3 @@ def category_posts(request, category_slug):
     template = 'blog/category.html'
     context = {'post': category_slug}
     return render(request, template, context)
-
-
-print(posts)
