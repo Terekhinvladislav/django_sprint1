@@ -14,7 +14,7 @@ posts = [
                 Весь этот день я хлопотал  около вещей: укрывал и
                 укутывал их, чтобы не испортились от дождя.''',
     },
-        {
+    {
         'id': 1,
         'location': 'Остров отчаянья',
         'date': '1 октября 1659 года',
@@ -53,9 +53,9 @@ for post in posts:
 def post_detail(request, id):
     template = 'blog/detail.html'
     context = {'post': posts[id]}
-    if id in post_list:
-        return render(request, template, context)
-    raise Http404
+    if id not in post_list:
+        raise Http404
+    return render(request, template, context)
 
 
 def index(request):
