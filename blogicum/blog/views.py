@@ -53,8 +53,10 @@ for post in posts:
 def post_detail(request, num):
     template = 'blog/detail.html'
     if num not in post_set:
-        raise Http404 ("Данной страницы не существует."
-            "Возможно, вы ввели неправильный номер поста.")
+        raise Http404(
+            "Данной страницы не существует."
+            "Возможно, вы ввели неправильный номер поста."
+        )
     context = {'post': posts[num]}
     return render(request, template, context)
 
