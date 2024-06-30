@@ -44,27 +44,28 @@ posts = [
     },
 ]
 
-post_list: list = list()
+post_set = set()
 
 for post in posts:
-    post_list.append(post['id'])
+    post_set.add(post['id'])
 
 
-def post_detail(request, id):
+def post_detail(request, num):
     template = 'blog/detail.html'
-    context = {'post': posts[id]}
-    if id not in post_list:
-        raise Http404
+    if num not in post_set:
+        raise Http404 ("Данной страницы не существует."
+            "Возможно, вы ввели неправильный номер поста.")
+    context = {'post': posts[num]}
     return render(request, template, context)
 
 
 def index(request):
     template = 'blog/index.html'
-    context = {'posts': posts[::-1]}
+    context = {'posts': reversed(posts)}
     return render(request, template, context)
 
 
 def category_posts(request, category_slug):
     template = 'blog/category.html'
-    context = {'post': category_slug}
+    context = {'category': category_slug}
     return render(request, template, context)
