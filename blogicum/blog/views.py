@@ -44,20 +44,21 @@ posts = [
     },
 ]
 
-post_set = set()
+our_posts = dict()
 
 for post in posts:
-    post_set.add(post['id'])
+    our_posts[post['id']] = post
 
 
-def post_detail(request, num):
+def post_detail(request, post_id):
     template = 'blog/detail.html'
-    if num not in post_set:
+    if post_id not in our_posts:
         raise Http404(
-            "Данной страницы не существует."
-            "Возможно, вы ввели неправильный номер поста."
+            f'Данной страницы не существует. '
+            f'Возможно, вы ввели неправильный номер поста. '
+            f'Пост с номером {post_id} отсутствует в нашей базе данных.'
         )
-    context = {'post': posts[num]}
+    context = {'post': our_posts[post_id]}
     return render(request, template, context)
 
 
